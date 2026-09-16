@@ -16,11 +16,11 @@
 
 <body><?php
         $so = rand(-100, 100);
-        echo "<strong> So ngau nhien la: " . $so . " </strong></br>";
+        echo "<strong> Số ngẫu nhiên là: " . $so . " </strong></br>";
         if ($so > 0) {
 
             $so_uoc = 0;
-            echo "Cac uoc so cua " . $so . " la ";
+            echo "Các ước số của " . $so . " la ";
             for ($i = 1; $i <= $so / 2; $i++) {
                 if ($so % $i == 0) {
                     echo $i . " ";
@@ -30,13 +30,13 @@
             echo "</br>";
 
             if ($so === 1) {
-                echo $so . " khong phai la so nguyen to" . "</br>";
+                echo $so . " không phải là số nguyên tố" . "</br>";
             }
 
             if ($so_uoc > 0) {
-                echo $so . " khong phai la so nguyen to" . "</br>";
+                echo $so . " không phải là số nguyên tố" . "</br>";
             } else {
-                echo $so . " la so nguyen to" . "</br>";
+                echo $so . " là số nguyên tố" . "</br>";
             }
 
 
@@ -55,9 +55,9 @@
                 }
             }
             if ($dem == 0) {
-                echo "Khong co so nguyen to nao nho hon " . $so;
+                echo "Không có số nguyên tố nào nhỏ hơn " . $so;
             } else {
-                echo "Cac so nguyen to nho hon " . $so . " la: ";
+                echo "Các số nguyên tố nhỏ hơn " . $so . " la: ";
                 foreach ($snt as $value) {
                     echo "<strong>" . $value . "</strong> ";
                 }
@@ -65,9 +65,9 @@
 
             echo "</br>";
             if (sqrt($so) === floor(sqrt($so))) {
-                echo $so . " la so chinh phuong";
+                echo $so . "là số nguyên tố.";
             } else {
-                echo $so . " khong phai la so chinh phuong";
+                echo $so . " không phải là số chính phương.";
             }
         }
 
