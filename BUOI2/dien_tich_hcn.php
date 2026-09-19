@@ -11,14 +11,13 @@
         margin: 20px;
         font-size: 20px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    form {
-        width: 1200px;
+        display: flex;
+        justify-content: center;
+        width: full;
     }
 
     .group {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         width: 100%;
 
     }
@@ -39,12 +38,20 @@
         font-size: 14px;
         font-weight: bold;
         cursor: pointer;
+        display: block;
+        margin: auto;
+
+    }
+
+    input[type="number"] {
+        line-height: 1.5;
     }
 </style>
 
 <body>
-    <h2>Diện tích hình chữ nhật</h2>
     <form action="Shcn.php" method="post">
+        <h2>Diện tích hình chữ nhật</h2>
+
         <div class="group">
             <label for="dai">Chiều dài</label>
             <input type="number" name="dai" min="0.01" step="0.01" value="<?php if (isset($_POST['dai'])) {
