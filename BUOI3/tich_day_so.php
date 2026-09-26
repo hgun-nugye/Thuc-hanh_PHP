@@ -104,7 +104,7 @@
                                                     }
                                                     echo $tich;
                                                 }
-                                                echo "" ?>">
+                                                echo "" ?>" readonly>
 
         <input type="submit" name="submit" value="Tính tích">
     </form>
