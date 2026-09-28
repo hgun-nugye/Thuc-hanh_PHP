@@ -49,7 +49,7 @@
 </style>
 
 <body>
-    <form action="Shcn.php" method="post">
+    <form action="dien_tich_hcn.php" method="post">
         <h2>Diện tích hình chữ nhật</h2>
 
         <div class="group">
