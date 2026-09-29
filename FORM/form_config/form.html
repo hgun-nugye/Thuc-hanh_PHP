@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu nhập thông tin</title>
+</head>
+
+<style>
+    body {
+        width: 100%;
+        height: 100vh;
+        margin: 20px;
+        font-size: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(70deg, #b7edac, #eef1b1);
+    }
+
+    form {
+        width: 80%;
+        max-width: 800px;
+        background-color: white;
+        padding: 30px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        color: #154cd8;
+        text-align: center;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+    }
+
+    .group {
+        margin-bottom: 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    label {
+        display: inline-block;
+        width: 25%;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+        width: 70%;
+        box-sizing: border-box;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        line-height: 2;
+    }
+
+    textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .radio-options,
+    .checkbox-options {
+        width: 75%;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .radio-options label,
+    .checkbox-options label {
+        width: auto;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        width: 100px;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        background-color: #008924;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    input[type="reset"] {
+        background-color: #37c6fa;
+    }
+
+    #country {
+        height: 40px;
+        width: 70%;
+    }
+</style>
+
+<body>
+
+    <form action="config.php" method="post">
+
+        <h2>Enter your information</h2>
+
+        <div class="group">
+            <label for="fullname">Fullname</label>
+            <input type="text" name="fullname" id="fullname" value="">
+        </div>
+
+        <div class="group">
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address" value="">
+        </div>
+
+        <div class="group">
+            <label for="phone">Phone</label>
+            <input type="number" name="phone" id="phone" value="">
+        </div>
+
+        <div class="group">
+            <label>Gender</label>
+
+            <div class="radio-options">
+                <label>
+                    <input type="radio" name="gender" value="nam">
+                    Nam
+                </label>
+
+                <label>
+                    <input type="radio" name="gender" value="nu">
+                    Nữ
+                </label>
+            </div>
+        </div>
+
+        <div class="group">
+            <label for="country">Country</label>
+
+            <select name="country" id="country">
+                <option value="VietNam">Việt Nam</option>
+                <option value="USA">USA</option>
+                <option value="Japan">Japan</option>
+                <option value="Korea">Korea</option>
+            </select>
+        </div>
+
+        <div class="group">
+            <label>Study</label>
+
+            <div class="checkbox-options">
+                <label>
+                    <input type="checkbox" name="study[]" value="PHP & MySQL">
+                    PHP & MySQL
+                </label>
+
+                <label>
+                    <input type="checkbox" name="study[]" value="ASP.NET">
+                    ASP.NET
+                </label>
+
+                <label>
+                    <input type="checkbox" name="study[]" value="CCNA">
+                    CCNA
+                </label>
+
+                <label>
+                    <input type="checkbox" name="study[]" value="Security+">
+                    Security+
+                </label>
+            </div>
+        </div>
+
+        <div class="group">
+            <label for="note">Note</label>
+            <textarea name="note" id="note"></textarea>
+        </div>
+
+        <div class="group">
+            <label></label>
+
+            <div>
+                <input type="submit" value="Gửi">
+                <input type="reset" value="Hủy">
+            </div>
+        </div>
+
+    </form>
+
+</body>
+
+</html>
