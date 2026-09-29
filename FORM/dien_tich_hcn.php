@@ -8,23 +8,43 @@
 </head>
 <style>
     body {
+        width: 100%;
+        height: 100vh;
         margin: 20px;
         font-size: 20px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         display: flex;
         justify-content: center;
-        width: full;
+        align-items: center;
+        background: linear-gradient(160deg, #f2e7b3, #9aea9b);
+    }
+
+    form {
+        width: 60%;
+        max-width: 500px;
+        background-color: white;
+        padding: 30px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: #a2560a;
+        text-align: center;
     }
 
     .group {
         margin-bottom: 20px;
         width: 100%;
-
+        display: flex;
+        align-items: center;
     }
 
     label {
         display: inline-block;
-        width: 120px;
+        width: 30%;
         font-weight: bold;
     }
 
@@ -40,11 +60,13 @@
         cursor: pointer;
         display: block;
         margin: auto;
+        margin-bottom: 20px;
 
     }
 
     input[type="number"] {
-        line-height: 1.5;
+        line-height: 2;
+        width: 70%;
     }
 </style>
 

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tính tiền Karaoke</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -140,58 +141,151 @@
 
 <body>
     <?php
+
     $time_start = "";
     $time_end = "";
-    $total_display = "";
+    $total = "";
     $error = "";
 
     if (isset($_POST["reset-btn"])) {
+
         $time_start = "";
         $time_end = "";
-        $total_display = "";
-    } else if (isset($_POST["submit"])) {
-        $time_start = $_POST['time-start'] ?? '';
-        $time_end = $_POST['time-end'] ?? '';
+        $total = "";
+        $error = "";
+    } elseif (isset($_POST["submit"])) {
 
-        if (!empty($time_start) && !empty($time_end)) {
-            $bd = strtotime($time_start);
-            $kt = strtotime($time_end);
+        $time_start = $_POST["time-start"] ?? "";
+        $time_end = $_POST["time-end"] ?? "";
 
-            if ($kt > $bd) {
-                $hours = ($kt - $bd) / 3600;
-                $total = $hours * 50000;
-                $total_display = number_format($total, 0, ',', ' ') . " VNĐ";
-            } else {
-                $error = "Giờ kết thúc phải lớn hơn giờ bắt đầu!";
-            }
-        } else {
+        if (empty($time_start) || empty($time_end)) {
+
             $error = "Vui lòng chọn đủ giờ bắt đầu và kết thúc!";
+        } else {
+            $bd = strtotime($time_start);
+            if ($time_end == "00:00") {
+
+                $kt = strtotime("tomorrow 00:00");
+            } else {
+
+                $kt = strtotime($time_end);
+            }
+
+            $startHour = (int)date("H", $bd);
+            if ($startHour < 10) {
+
+                $error = "Giờ bắt đầu phải từ 10h!";
+            } elseif ($kt <= $bd) {
+
+                $error = "Giờ kết thúc phải lớn hơn giờ bắt đầu!";
+            } else {
+
+                $totalMoney = 0;
+
+                $minutes = ($kt - $bd) / 60;
+
+                for ($i = 0; $i < $minutes; $i++) {
+
+                    $current = $bd + ($i * 60);
+
+                    $hour = (int)date("H", $current);
+                    if ($hour >= 10 && $hour < 17) {
+
+                        $totalMoney += 20000 / 60;
+                    } elseif ($hour >= 17 && $hour < 24) {
+
+                        $totalMoney += 45000 / 60;
+                    }
+                }
+                $total = number_format(
+                    round($totalMoney),
+                    0,
+                    ',',
+                    ' '
+                ) . " VNĐ";
+            }
         }
     }
+
     ?>
 
     <form action="" method="post">
+
         <h3>Tính tiền Karaoke</h3>
-        <p class="sub-title">Đơn giá: 50.000 VNĐ / giờ</p>
+
+        <p class="sub-title">
+            Từ 10h - 17h: 20.000 VNĐ / giờ
+            <br>
+            Từ 17h - 24h: 45.000 VNĐ / giờ
+        </p>
 
         <?php if (!empty($error)): ?>
-            <div class="error-msg"><?php echo $error; ?></div>
+
+            <div class="error-msg">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+
         <?php endif; ?>
 
-        <label for="time-start">Giờ bắt đầu</label>
-        <input type="time" id="time-start" name="time-start" value="<?php echo htmlspecialchars($time_start); ?>">
 
-        <label for="time-end">Giờ kết thúc</label>
-        <input type="time" id="time-end" name="time-end" value="<?php echo htmlspecialchars($time_end); ?>">
+        <label for="time-start">
+            Giờ bắt đầu
+        </label>
 
-        <label for="total">Tiền thanh toán</label>
-        <input type="text" id="total" name="total" value="<?php echo $total_display; ?>" readonly placeholder="0 VNĐ">
+        <input
+            type="time"
+            id="time-start"
+            name="time-start"
+            min="10:00"
+            max="23:00"
+            value="<?php echo htmlspecialchars($time_start); ?>">
+
+
+        <label for="time-end">
+            Giờ kết thúc
+        </label>
+
+        <input
+            type="time"
+            id="time-end"
+            name="time-end"
+            min="10:00"
+            value="<?php echo htmlspecialchars($time_end); ?>">
+
+
+        <label for="total">
+            Tiền thanh toán
+        </label>
+
+        <input
+            type="text"
+            id="total"
+            name="total"
+            value="<?php echo htmlspecialchars($total); ?>"
+            readonly
+            placeholder="0 VNĐ">
+
 
         <div class="btn-group">
-            <button type="submit" name="submit" class="btn btn-submit">Tính tiền</button>
-            <button type="submit" name="reset-btn" class="btn btn-reset">Nhập lại</button>
+
+            <button
+                type="submit"
+                name="submit"
+                class="btn btn-submit">
+                Tính tiền
+            </button>
+
+            <button
+                type="submit"
+                name="reset-btn"
+                class="btn btn-reset">
+                Nhập lại
+            </button>
+
         </div>
+
     </form>
+
 </body>
 
 </html>
