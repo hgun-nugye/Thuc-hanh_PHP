@@ -34,6 +34,7 @@
         color: #154cd8;
         text-align: center;
         margin-bottom: 40px;
+        text-transform: uppercase;
     }
 
     .group {
@@ -69,6 +70,7 @@
     input[type="text"] {
         line-height: 2;
         width: 70%;
+        font-size: 16px;
     }
 </style>
 
@@ -104,12 +106,12 @@
 
         <div class="group">
             <label for="tien">Số tiền thanh toán</label>
-            <input type="number" name="tien" value="<?php if ((isset($_POST["socu"])) && isset($_POST["somoi"]) && isset($_POST["name"])) {
+            <input type="text" name="tien" value="<?php if ((isset($_POST["socu"])) && isset($_POST["somoi"]) && isset($_POST["name"])) {
                                                         $somoi = $_POST["somoi"];
                                                         $socu = $_POST["socu"];
                                                         $dongia = 20000;
 
-                                                        echo ($somoi - $socu) * $dongia;
+                                                        echo number_format(($somoi - $socu) * $dongia, 0, ".", " ");
                                                     } ?>" readonly>
         </div>
 

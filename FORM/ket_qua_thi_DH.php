@@ -34,6 +34,7 @@
         color: #154cd8;
         text-align: center;
         margin-bottom: 40px;
+        text-transform: uppercase;
     }
 
     .group {

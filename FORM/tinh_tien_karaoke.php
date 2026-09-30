@@ -7,203 +7,149 @@
     <title>Tính tiền Karaoke</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            max-width: 1200px;
+            width: 100%;
+            min-height: 100vh;
+            margin: 0;
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: auto;
-            font-size: 18px;
-            min-height: 100vh;
-            background: linear-gradient(180deg, #e9ffe3, #cf99c6);
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background: linear-gradient(200deg, #d3dcf6, #fff2ea);
         }
 
         form {
-            padding: 35px 40px;
-            width: 450px;
+            width: 80%;
+            max-width: 650px;
             background-color: white;
-            border-radius: 12px;
+            padding: 30px;
             border: 2px solid #ccc;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        form:hover {
-            border-color: #aae3b5;
-            box-shadow: 0 6px 20px rgba(135, 211, 155, 0.3);
-        }
-
-        h3 {
+        h2 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #154cd8;
             text-align: center;
-            font-weight: bold;
-            font-size: 30px;
-            margin: 0 0 5px 0;
-            color: #021426;
+            text-transform: uppercase;
+            margin-bottom: 40px;
         }
 
-        .sub-title {
-            text-align: center;
-            font-style: italic;
-            font-size: 15px;
-            margin: 0 0 20px 0;
-            color: #666;
+        .group {
+            margin-bottom: 20px;
+            width: 100%;
+            display: flex;
+            align-items: center;
         }
 
         label {
-            display: block;
+            display: inline-block;
+            width: 30%;
             font-weight: bold;
-            margin-bottom: 6px;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            line-height: 2;
+            width: 70%;
+            font-size: 16px;
+            padding: 0 8px;
+            border-radius: 4px;
+            border: 2px solid #CCC
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #154cd8;
+        }
+
+        input[type="text"] {
+            background-color: #fffed8;
+            font-weight: bold;
             color: #333;
         }
 
-        input[type="time"],
-        input[type="text"] {
-            display: block;
-            width: 100%;
-            padding: 10px 12px;
-            margin-bottom: 18px;
-            border: 2px solid #ccc;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 18px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        input[type="text"] {
-            font-weight: bold;
-            font-size: 20px;
-            background-color: #f8f9fa;
-            color: #d9534f;
-        }
-
-        input[type="time"]:focus,
-        input[type="text"]:focus {
-            border-color: #01aa26;
-            box-shadow: 0 0 6px rgba(1, 170, 38, 0.3);
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px 0;
-            font-weight: bold;
-            font-size: 16px;
-            color: white;
+        input[type="submit"] {
+            width: 100px;
+            padding: 10px;
             border: none;
             border-radius: 6px;
+            background-color: #008924;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
             cursor: pointer;
-            text-align: center;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            display: block;
+            margin: auto;
+            margin-bottom: 20px;
         }
 
-        .btn:active {
-            transform: scale(0.98);
+        input[type="submit"]:hover {
+            background-color: #087722;
         }
 
-        .btn-submit {
-            background-color: #01aa26;
-        }
-
-        .btn-submit:hover {
-            background-color: #088722;
-        }
-
-        .btn-reset {
-            background-color: #7f8c8d;
-        }
-
-        .btn-reset:hover {
-            background-color: #636e72;
-        }
-
-        .error-msg {
-            color: #d9534f;
-            font-size: 15px;
-            margin-bottom: 15px;
+        .error {
+            color: red;
             text-align: center;
             font-weight: bold;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 
 <body>
-    <?php
 
-    $time_start = "";
-    $time_end = "";
-    $total = "";
+    <?php
+    $gioBatDau = "";
+    $gioKetThuc = "";
+    $tien = "";
     $error = "";
 
     if (isset($_POST["reset-btn"])) {
 
-        $time_start = "";
-        $time_end = "";
-        $total = "";
+        $gioBatDau = "";
+        $gioKetThuc = "";
+        $tien = "";
         $error = "";
     } elseif (isset($_POST["submit"])) {
 
-        $time_start = $_POST["time-start"] ?? "";
-        $time_end = $_POST["time-end"] ?? "";
+        $gioBatDau = $_POST["gioBatDau"] ?? "";
+        $gioKetThuc = $_POST["gioKetThuc"] ?? "";
 
-        if (empty($time_start) || empty($time_end)) {
+        if ($gioBatDau === "" || $gioKetThuc === "") {
 
-            $error = "Vui lòng chọn đủ giờ bắt đầu và kết thúc!";
+            $error = "Vui lòng nhập đầy đủ giờ bắt đầu và giờ kết thúc!";
+        } elseif (
+            !filter_var($gioBatDau, FILTER_VALIDATE_INT) ||
+            !filter_var($gioKetThuc, FILTER_VALIDATE_INT)
+        ) {
+            $error = "Giờ phải là số nguyên!";
+        } elseif ($gioBatDau < 10 || $gioBatDau >= 24) {
+            $error = "Giờ bắt đầu phải từ 10h đến trước 24h!";
+        } elseif ($gioKetThuc <= $gioBatDau || $gioKetThuc > 24) {
+            $error = "Giờ kết thúc phải lớn hơn giờ bắt đầu và không quá 24h!";
         } else {
-            $bd = strtotime($time_start);
-            if ($time_end == "00:00") {
+            $tien = 0;
 
-                $kt = strtotime("tomorrow 00:00");
-            } else {
+            if ($gioBatDau < 17) {
+                $gio20k = min($gioKetThuc, 17) - $gioBatDau;
 
-                $kt = strtotime($time_end);
-            }
-
-            $startHour = (int)date("H", $bd);
-            if ($startHour < 10) {
-
-                $error = "Giờ bắt đầu phải từ 10h!";
-            } elseif ($kt <= $bd) {
-
-                $error = "Giờ kết thúc phải lớn hơn giờ bắt đầu!";
-            } else {
-
-                $totalMoney = 0;
-
-                $minutes = ($kt - $bd) / 60;
-
-                for ($i = 0; $i < $minutes; $i++) {
-
-                    $current = $bd + ($i * 60);
-
-                    $hour = (int)date("H", $current);
-                    if ($hour >= 10 && $hour < 17) {
-
-                        $totalMoney += 20000 / 60;
-                    } elseif ($hour >= 17 && $hour < 24) {
-
-                        $totalMoney += 45000 / 60;
-                    }
+                if ($gio20k > 0) {
+                    $tien += $gio20k * 20000;
                 }
-                $total = number_format(
-                    round($totalMoney),
-                    0,
-                    ',',
-                    ' '
-                ) . " VNĐ";
             }
+
+            if ($gioKetThuc > 17) {
+                $gio45k = $gioKetThuc - max($gioBatDau, 17);
+
+                if ($gio45k > 0) {
+                    $tien += $gio45k * 45000;
+                }
+            }
+
+            $tien = number_format($tien, 0, ',', '.') . " VNĐ";
         }
     }
 
@@ -211,78 +157,33 @@
 
     <form action="" method="post">
 
-        <h3>Tính tiền Karaoke</h3>
+        <h2>TÍNH TIỀN KARAOKE</h2>
 
-        <p class="sub-title">
-            Từ 10h - 17h: 20.000 VNĐ / giờ
-            <br>
-            Từ 17h - 24h: 45.000 VNĐ / giờ
-        </p>
-
-        <?php if (!empty($error)): ?>
-
-            <div class="error-msg">
+        <?php if (!empty($error)) { ?>
+            <div class="error">
                 <?php echo htmlspecialchars($error); ?>
             </div>
+        <?php } ?>
 
-        <?php endif; ?>
-
-
-        <label for="time-start">
-            Giờ bắt đầu
-        </label>
-
-        <input
-            type="time"
-            id="time-start"
-            name="time-start"
-            min="10:00"
-            max="23:00"
-            value="<?php echo htmlspecialchars($time_start); ?>">
-
-
-        <label for="time-end">
-            Giờ kết thúc
-        </label>
-
-        <input
-            type="time"
-            id="time-end"
-            name="time-end"
-            min="10:00"
-            value="<?php echo htmlspecialchars($time_end); ?>">
-
-
-        <label for="total">
-            Tiền thanh toán
-        </label>
-
-        <input
-            type="text"
-            id="total"
-            name="total"
-            value="<?php echo htmlspecialchars($total); ?>"
-            readonly
-            placeholder="0 VNĐ">
-
-
-        <div class="btn-group">
-
-            <button
-                type="submit"
-                name="submit"
-                class="btn btn-submit">
-                Tính tiền
-            </button>
-
-            <button
-                type="submit"
-                name="reset-btn"
-                class="btn btn-reset">
-                Nhập lại
-            </button>
-
+        <div class="group">
+            <label for="gioBatDau">Giờ bắt đầu:</label>
+            <input type="number" name="gioBatDau" id="gioBatDau" min="10" max="23"
+                value="<?php echo ($gioBatDau); ?>" required>
         </div>
+
+        <div class="group">
+            <label for="gioKetThuc">Giờ kết thúc:</label>
+            <input type="number" name="gioKetThuc" id="gioKetThuc" min="11" max="24"
+                value="<?php echo ($gioKetThuc); ?>" required>
+        </div>
+
+        <div class="group">
+            <label for="tien">Tiền thanh toán:</label>
+            <input type="text" name="tien" id="tien"
+                value="<?php echo $tien; ?>" readonly>
+        </div>
+
+        <input type="submit" name="submit" value="Tính tiền">
 
     </form>
 

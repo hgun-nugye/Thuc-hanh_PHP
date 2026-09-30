@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tính tích dãy số</title>
+    <title>Tính tổng dãy số</title>
 </head>
 <style>
     body {
@@ -15,14 +15,15 @@
         margin: auto;
         font-size: 20px;
         min-height: 100vh;
-        background: linear-gradient(160deg, #fcfadd, #92d7f7);
+        background: linear-gradient(160deg, #fcfadd, #d5e4ec);
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     }
 
     form {
         padding: 40px;
         height: fit-content;
-        width: 300px;
+        width: 50%;
+        max-width: 500px;
         background-color: white;
         border-radius: 8px;
         border: 2px solid #ccc;
@@ -50,6 +51,7 @@
         border: 2px solid #ccc;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
         border-radius: 4px;
+        font-size: 16px;
     }
 
     input[type="text"]:focus,
@@ -82,31 +84,34 @@
         font-weight: bold;
         font-size: 30px;
         margin-top: 0;
+        text-transform: uppercase;
+        color: blue;
+
     }
 </style>
 
 <body>
-    <form action="tich_day_so.php" method="post">
-        <p>Tính tích dãy số</p>
+    <form action="tong_day_so.php" method="post">
+        <p>Nhập và tính trên dãy số</p>
         <label for="dayso">
             Nhập vào dãy số
         </label>
         <input type="text" name="dayso" value="<?php if (isset($_POST['dayso'])) echo  $_POST['dayso'] ?>">
 
-        <label for="tich">
-            Tích dãy số vừa nhập
+        <label for="tong">
+            Tổng dãy số
         </label>
-        <input type="number" name="tich" value="<?php if (isset($_POST['dayso'])) {
+        <input type="number" name="tong" value="<?php if (isset($_POST['dayso'])) {
                                                     $day = explode(",", $_POST['dayso']);
-                                                    $tich = 1;
+                                                    $tong = 0;
                                                     foreach ($day as $value) {
-                                                        $tich *= (float) $value;
+                                                        $tong += (float) $value;
                                                     }
-                                                    echo $tich;
+                                                    echo $tong;
                                                 }
                                                 echo "" ?>" readonly>
 
-        <input type="submit" name="submit" value="Tính tích">
+        <input type="submit" name="submit" value="Tổng dãy số">
     </form>
 </body>
 
