@@ -34,6 +34,7 @@
         color: #154cd8;
         text-align: center;
         margin-bottom: 40px;
+
     }
 
     .group {
@@ -50,7 +51,7 @@
         width: 30%;
         font-weight: bold;
         text-align: right;
-        margin-right: 10px;
+        margin-right: 14px;
 
     }
 
@@ -79,7 +80,7 @@
         width: 30%;
         flex-shrink: 0;
         text-align: right;
-        margin-right: 10px;
+        margin-right: 14px;
     }
 
     .radio-options {
@@ -87,6 +88,7 @@
         display: flex;
         gap: 15px;
         align-items: center;
+        color: red;
     }
 
     .radio-options label {
@@ -108,7 +110,7 @@
         <h2>PHÉP TÍNH TRÊN HAI SỐ</h2>
 
         <div class="group group-radio">
-            <label for="pheptinh">Chọn phép tính</label>
+            <label for="pheptinh">Chọn phép tính:</label>
             <div class="radio-options">
                 <label><input type="radio" name="pheptinh" value="cong" required> Cộng</label>
                 <label><input type="radio" name="pheptinh" value="tru" required> Trừ</label>
@@ -119,20 +121,20 @@
         </div>
 
         <div class="group">
-            <label for="so1">Số thứ nhất</label>
+            <label for="so1">Số thứ nhất:</label>
             <input type="number" name="so1" step="0.01" value="<?php if (isset($_POST['so1'])) {
                                                                     echo $_POST["so1"];
                                                                 } ?>" required>
         </div>
 
         <div class="group">
-            <label for="so2">Số thứ hai</label>
+            <label for="so2">Số thứ hai:</label>
             <input type="number" name="so2" step="0.01" value="<?php if (isset($_POST['so2'])) {
                                                                     echo $_POST["so2"];
                                                                 } ?>" required>
         </div>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Tính">
     </form>
 </body>
 

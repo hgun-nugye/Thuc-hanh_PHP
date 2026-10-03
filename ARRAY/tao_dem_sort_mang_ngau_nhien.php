@@ -35,6 +35,8 @@
             text-align: center;
             text-transform: uppercase;
             margin-bottom: 40px;
+            font-style: italic;
+
         }
 
         .group {

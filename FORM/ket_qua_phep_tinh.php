@@ -34,6 +34,9 @@
         color: #154cd8;
         text-align: center;
         margin-bottom: 20px;
+        text-transform: uppercase;
+        font-style: italic;
+
     }
 
     .group {
@@ -86,6 +89,8 @@
         display: flex;
         gap: 15px;
         align-items: center;
+        color: red;
+        font-weight: bold;
     }
 
     .radio-options label {
@@ -94,6 +99,8 @@
         font-weight: normal;
         cursor: pointer;
         white-space: nowrap;
+        font-weight: bold;
+
     }
 
     a {
@@ -101,7 +108,6 @@
         text-align: center;
         font-style: italic;
         color: #9427cb;
-        font-weight: bold;
     }
 
     .error-msg {
@@ -137,7 +143,11 @@
 
             case "chia":
                 if ($so2 == 0) {
-                    $error = "Không thể chia cho 0";
+                    echo "<script>
+                        alert('Không thể chia cho 0!');
+                        window.history.back();
+                    </script>";
+                    exit;
                 } else {
                     $ketqua = $so1 / $so2;
                 }
@@ -157,7 +167,7 @@
         <?php endif; ?>
 
         <div class="group group-radio">
-            <label>Chọn phép tính</label>
+            <label>Chọn phép tính:</label>
             <div class="radio-options">
                 <label>
                     <?php
@@ -183,17 +193,17 @@
         </div>
 
         <div class="group">
-            <label for="so1">Số thứ nhất</label>
+            <label for="so1">Số 1:</label>
             <input type="number" name="so1" step="0.01" value="<?php echo $so1 ?>" readonly>
         </div>
 
         <div class="group">
-            <label for="so2">Số thứ hai</label>
+            <label for="so2">Số 2:</label>
             <input type="number" name="so2" step="0.01" value="<?php echo $so2 ?>" readonly>
         </div>
 
         <div class="group">
-            <label for="ketqua">Kết quả</label>
+            <label for="ketqua">Kết quả:</label>
             <input type="number" name="ketqua"
                 value="<?php echo $ketqua; ?>" readonly>
         </div>

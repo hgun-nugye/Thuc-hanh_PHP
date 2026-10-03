@@ -20,86 +20,116 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(200deg, #d3dcf6, #fff2ea);
+            background: white;
         }
 
         form {
-            width: 80%;
-            max-width: 750px;
+            width: 1000px;
+            max-width: 98%;
             background-color: white;
-            padding: 30px 40px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 0 0 10px;
+            border: 1px solid #ccc;
         }
 
         h2 {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            color: #154cd8;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            color: white;
             text-align: center;
             text-transform: uppercase;
-            margin-top: 0;
-            margin-bottom: 40px;
+            margin: 0 0 5px;
+            font-style: italic;
+            font-size: 36px;
+            background-color: #a70d76;
+            padding: 8px;
         }
 
         .group {
             width: 100%;
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
+            padding: 4px 15px;
         }
 
         label {
             display: inline-block;
-            width: 30%;
-            font-weight: bold;
+            width: 38%;
+            flex-shrink: 0;
+            font-weight: normal;
+            color: #555;
         }
 
-        input[type="number"],
+        input[type="text"],
         input[type="text"] {
-            width: 70%;
-            padding: 8px 10px;
-            font-size: 16px;
-            line-height: 1.5;
-            border: 1px solid #777;
+            width: 58%;
+            min-width: 0;
+            height: 40px;
+            padding: 4px 6px;
+            font-size: 20px;
+            font-family: inherit;
+            border: 2px inset #ddd;
+            border-radius: 0;
+            outline: none;
         }
 
-        input[type="number"]:focus,
+        .group:first-of-type {
+            background-color: #f9dff0;
+        }
+
+        .group:first-of-type input {
+            background-color: white;
+        }
+
         input[type="text"]:focus {
-            outline: none;
-            border-color: #154cd8;
+            border-color: #999;
         }
 
         input[type="submit"] {
-            width: 125px;
-            padding: 10px;
-            border: none;
-            border-radius: 6px;
-            background-color: #008924;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
             display: block;
-            margin: 5px auto 25px;
+            width: 38%;
+            height: 45px;
+            margin: 0 0 8px 38%;
+            padding: 5px;
+            font-family: inherit;
+            font-size: 22px;
+            font-weight: normal;
+            color: black;
+            background-color: #fff59b;
+            border: 2px outset #e8dc78;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .submit-row {
+            background-color: #f9dff0;
+            padding: 4px 15px 8px;
+        }
+
+        .submit-row input[type="submit"] {
+            margin: 0 0 0 38%;
         }
 
         input[type="submit"]:hover {
-            background-color: #087722;
+            background-color: #f6e06f;
         }
 
         .ketqua {
-            background-color: #f8fff9;
-            font-weight: bold;
-            color: green;
+            background-color: #f6aaa5;
+            color: #8c4444;
         }
 
         .error {
-            width: 100%;
             text-align: center;
             color: red;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin: 8px;
+        }
+
+        .note {
+            text-align: center;
+            font-size: 20px;
+            margin: 10px 0;
+            color: #555;
         }
     </style>
 </head>
@@ -107,8 +137,7 @@
 <body>
 
     <?php
-
-    $n = "";
+    $n = $_POST["n"] ?? "";
     $mang = "";
     $max = "";
     $min = "";
@@ -116,62 +145,86 @@
     $error = "";
 
     if (isset($_POST["submit"])) {
-
-        $n = $_POST["n"] ?? "";
-
-        if (!filter_var($n, FILTER_VALIDATE_INT) || $n <= 0) {
+        if (
+            trim($n) === "" ||
+            !preg_match('/^\d+$/', trim($n)) ||
+            (int)$n <= 0
+        ) {
             $error = "n phải là số nguyên dương";
         } else {
-            // Sinh mảng
+            $n = (int)$n;
+
             $arr = [];
+
             for ($i = 0; $i < $n; $i++) {
                 $arr[] = rand(0, 20);
             }
-            // Chuyển mảng thành chuỗi
-            $mang = implode(", ", $arr);
-            // Tìm MAX
+
+            $mang = implode(" ", $arr);
             $max = max($arr);
-            // Tìm MIN
             $min = min($arr);
-            // Tính tổng
             $tong = array_sum($arr);
         }
     }
     ?>
 
     <form action="" method="post">
-        <h2>TÌM MAX, MIN CỦA MẢNG</h2>
-        <?php if (!empty($error)): ?>
+
+        <h2>PHÁT SINH MẢNG VÀ TÍNH TOÁN</h2>
+
+        <?php if ($error != "") { ?>
             <div class="error">
                 <?php echo htmlspecialchars($error); ?>
             </div>
-        <?php endif; ?>
+        <?php } ?>
 
         <div class="group">
-            <label for="n">Nhập n</label>
-            <input
-                type="number" name="n" id="n" min="1" step="1"
-                value="<?php echo $n; ?>"
-                required>
+            <label for="n">Nhập số phần tử:</label>
+
+            <input type="text" name="n" id="n"
+                value="<?php echo htmlspecialchars((string)$n); ?>"
+                min="1" step="1" required>
         </div>
-        <input type="submit" name="submit" value="Thực hiện">
+
+        <div class="submit-row">
+            <input type="submit" name="submit" value="Phát sinh và tính toán">
+        </div>
+
         <div class="group">
-            <label for="mang">Mảng</label>
-            <input type="text" id="mang" value="<?php echo $mang; ?>" readonly>
+            <label for="mang">Mảng:</label>
+
+            <input type="text" id="mang" class="ketqua"
+                value="<?php echo htmlspecialchars((string)$mang); ?>" readonly>
         </div>
+
         <div class="group">
-            <label for="max">GTLN (MAX)</label>
-            <input class="ketqua" type="text" id="max" value="<?php echo $max; ?>" readonly>
+            <label for="max">GTLN (MAX) trong mảng:</label>
+
+            <input type="text" id="max" class="ketqua"
+                value="<?php echo htmlspecialchars((string)$max); ?>" readonly>
         </div>
+
         <div class="group">
-            <label for="min">GTNN (MIN)</label>
-            <input class="ketqua" type="text" id="min" value="<?php echo $min; ?>" readonly>
+            <label for="min">GTNN (MIN) trong mảng:</label>
+
+            <input type="text" id="min" class="ketqua"
+                value="<?php echo htmlspecialchars((string)$min); ?>" readonly>
         </div>
+
         <div class="group">
-            <label for="tong">Tổng mảng</label>
-            <input class="ketqua" type="text" id="tong" value="<?php echo $tong; ?>" readonly>
+            <label for="tong">Tổng mảng:</label>
+
+            <input type="text" id="tong" class="ketqua"
+                value="<?php echo htmlspecialchars((string)$tong); ?>" readonly>
         </div>
+
+        <p class="note">
+            (<span style="color: #a70d76; font-weight: bold;">Ghi chú:</span>
+            Các phần tử trong mảng sẽ có giá trị từ 0 đến 20)
+        </p>
+
     </form>
+
 </body>
 
 </html>

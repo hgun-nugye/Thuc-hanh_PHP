@@ -14,7 +14,7 @@
         font-size: 20px;
     }
 
-    button {
+    a {
         width: fit-content;
         padding: 10px;
         border: none;
@@ -25,6 +25,7 @@
         font-weight: bold;
         cursor: pointer;
         margin: 20px 0px;
+        text-decoration: none;
     }
 </style>
 
@@ -65,7 +66,7 @@
     ?>
     <br>
 
-    <button href="javascript:window.history.back(-1);">Quay lại trang trước</button>
+    <a href="javascript:window.history.back(-1); ">Quay lại trang trước</a>
 </body>
 
 </html>
