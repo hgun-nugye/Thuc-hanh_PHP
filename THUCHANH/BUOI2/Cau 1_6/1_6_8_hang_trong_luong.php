@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sữa có trọng lượng lớn nhất, nhỏ nhất</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        width: 100%;
+        padding: 40px;
+        height: 100vh;
+
+    }
+
+    .table-flex {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    table {
+        width: 80%;
+        max-width: 800px;
+        margin-top: 20px;
+    }
+</style>
+
+<body>
+
+    <?php
+    // 1. Kết nối CSDL
+    $conn = mysqli_connect("localhost", "root", "", "quanly_ban_sua")
+        or die("Không thể kết nối: " . mysqli_connect_error());
+
+    mysqli_set_charset($conn, "UTF8");
+
+    // 2. Chuẩn bị câu truy vấn
+    $sql = "SELECT h.Ten_hang_sua, s.Ten_sua, s.Trong_luong
+            FROM sua s
+            JOIN hang_sua h ON s.Ma_hang_sua = h.Ma_hang_sua
+            WHERE s.Trong_luong = (
+                SELECT MAX(s2.Trong_luong)
+                FROM sua s2
+                WHERE s2.Ma_hang_sua = s.Ma_hang_sua
+            )
+            OR s.Trong_luong = (
+            SELECT MIN(s3.Trong_luong)
+            FROM sua s3
+            WHERE s3.Ma_hang_sua = s.Ma_hang_sua
+            );";
+
+    // 3. Thực thi câu truy vấn
+    $result = mysqli_query($conn, $sql);
+    if (!$result) die("<br <br> Query failed");
+
+    // 4. Hiển thị dữ liệu
+    echo "<h3 style='text-align:center; font-size: 2rem'>Danh sách sữa có trọng lượng lớn nhất, nhỏ nhất</h3>";
+    echo "<div class='table-flex'>";
+
+    if (mysqli_num_rows($result) != 0) {
+        echo "<table border='1' cellpadding='4' cellspacing='0' class='table table-striped'>";
+        echo "<tr>";
+        echo "<th>Tên hãng sữa</th>";
+        echo "<th>Tên sữa</th>";
+        echo "<th>Trọng lượng</th>";
+        echo "</tr>";
+
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<tr>";
+            echo "<td>" . $row["Ten_hang_sua"] . "</td>";
+            echo "<td>" . $row["Ten_sua"] . "</td>";
+            echo "<td>" . $row["Trong_luong"] . "</td>";
+            echo "</tr>";
+        }
+
+        echo "</table>";
+        echo "</div>";
+    }
+
+    ?>
+
+</body>
+
+</html>
