@@ -42,9 +42,9 @@
     // 1. Kết nối CSDL
     $conn = mysqli_connect("localhost", "root", "", "quanly_ban_sua")
         or die("Không thể kết nối: " . mysqli_connect_error());
+    if ($conn) echo "Ket noi thanh cong <br>";
 
     mysqli_set_charset($conn, "UTF8");
-    if ($conn) echo "Ket noi thanh cong <br>";
 
     // 2. Chuẩn bị câu truy vấn
     $sql = "SELECT * FROM khach_hang";
@@ -67,27 +67,33 @@
         echo "<th>Địa chỉ</th>";
         echo "<th>Điện thoại</th>";
         echo "<th>Email</th>";
+        echo "<th>Thao tác</th>";
         echo "</tr>";
 
         while ($row = mysqli_fetch_array($result)) {
-            if ((int)($row["Dien_thoai"]) % 2 == 0) {
+            // if ((int)($row["Dien_thoai"]) % 2 == 0) {
 
-                echo "<tr>";
-                echo "<td>" . $row["Ma_khach_hang"] . "</td>";
-                echo "<td>" . $row["Ten_khach_hang"] . "</td>";
+            echo "<tr>";
+            echo "<td>" . $row["Ma_khach_hang"] . "</td>";
+            echo "<td>" . $row["Ten_khach_hang"] . "</td>";
 
-                if ($row["Phai"] == 0)
-                    echo "<td>" . "Nam" . "</td>";
-                else
-                    echo "<td>" . "Nữ" . "</td>";
+            if ($row["Phai"] == 0)
+                echo "<td>" . "Nam" . "</td>";
+            else
+                echo "<td>" . "Nữ" . "</td>";
 
-                echo "<td>" . $row["Dia_chi"] . "</td>";
+            echo "<td>" . $row["Dia_chi"] . "</td>";
 
 
-                echo "<td>" . $row["Dien_thoai"] . "</td>";
-                echo "<td>" . $row["Email"] . "</td>";
-                echo "</tr>";
-            }
+            echo "<td>" . $row["Dien_thoai"] . "</td>";
+            echo "<td>" . $row["Email"] . "</td>";
+            echo "<td>";
+            echo "<a href='sua_khach_hang.php?ma_kh="
+                . urlencode($row["Ma_khach_hang"])
+                . "' class='btn btn-warning btn-sm'>✏️</a>";
+            echo "</td>";
+            echo "</tr>";
+            // }
         }
 
         echo "</table> <br> <br>";
