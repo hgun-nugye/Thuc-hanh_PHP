@@ -12,22 +12,25 @@
     //$conn = mysqli_connect('localhost', 'root', '', 'quanly_ban_sua')
     $conn = mysqli_connect('localhost', 'root', '', 'quanly_ban_sua') or die('Không thể kết nối tới database' . mysqli_connect_error());
     mysqli_set_charset($conn, 'utf8');
+
     //phan trang
     $rowsPerPage = 10;
     if (! isset($_GET['page'])) {
         $_GET['page'] = 1;
     }
+
     $offset = ($_GET['page'] - 1) * $rowsPerPage;
 
     $query = "Select * from sua LIMIT $offset, $rowsPerPage";
     $result = mysqli_query($conn, $query);
+
     $numRows = mysqli_num_rows($result);
     $maxPage = ceil($numRows / $rowsPerPage);
 
     //print_r(mysqli_fetch_array($result));
     if ($numRows <> 0) {
         echo "<p align='center'><font size='5' color='blue'> THÔNG TIN SUA</font></P>";
-        echo "<table align='center' width='100%' border='1' cellpadding='2' cellspacing='2' style='border-collapse:collapse'>";
+        echo "<table align='center' width='80%' border='1' cellpadding='2' cellspacing='2' style='border-collapse:collapse'>";
         echo "<tr>
 	    	<th>SO TT</th>
 	     	<th>Tên Sua</th>
@@ -64,9 +67,10 @@
             }
         }
         echo "</table>";
+
         $re = mysqli_query($conn, 'select * from sua');
         $numRows = mysqli_num_rows($re);
-        $maxPage = floor($numRows / $rowsPerPage) + 1;
+        $maxPage = ceil($numRows / $rowsPerPage);
         echo "<center>";
         if ($_GET['page'] > 1) {
             echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=" . ($_GET['page'] - 1) . ">Back</a> "; //gắn thêm nút Back
@@ -81,8 +85,8 @@
         }
         echo "</center>";
 
-        //    echo 'Tong so trang la: '.$maxPage;
-
+        echo 'Tong so trang la: ' . $maxPage;
+        // echo '<center>Tong so trang la: ' . $maxPage . "</center>";
     }
     mysqli_close($conn);
     ?>

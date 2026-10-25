@@ -100,6 +100,8 @@
         echo "</div>";
     }
 
+    mysqli_close($conn);
+
     ?>
 
 </body>

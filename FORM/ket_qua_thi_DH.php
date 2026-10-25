@@ -202,7 +202,7 @@
         </div>
 
         <input type="submit" value="Xem kết quả">
-
+        <!-- <input type="reset" value="Reset kết quả" onclick="window.location.href=window.location.pathname"> -->
     </form>
 
 </body>
